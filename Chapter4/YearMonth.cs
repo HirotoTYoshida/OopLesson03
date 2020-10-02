@@ -28,6 +28,8 @@ namespace Chapter4
             }
         }
 
+        public bool Is21Century { get; internal set; }
+
         //4.1.3
         //AddOneMonth()メソッドを追加
         public YearMonth AddOneMonth()
@@ -50,12 +52,6 @@ namespace Chapter4
         }
 
         // 4.2.1
-        var ymCollection = new YearMonth[] {
-                new YearMonth(1980, 1),
-                new YearMonth(1990, 4),
-                new YearMonth(2000, 7),
-                new YearMonth(2010, 9),
-                new YearMonth(2020, 12),
-        };       
+        
     }
 }
