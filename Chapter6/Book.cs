@@ -26,6 +26,7 @@ namespace Chapter6
                 new Book {Title= "銀河鉄道の夜",Price = 411,Pages = 276},
                 new Book {Title= "二都物語",Price = 961,Pages = 666},
                 new Book {Title= "遠野物語",Price = 514,Pages = 268},
+
             };
             return books;
         }
