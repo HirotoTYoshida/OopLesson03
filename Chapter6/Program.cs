@@ -59,7 +59,7 @@ namespace Chapter6
                new Book { Title = "楽しいC#プログラミング教室", Price = 2540, Pages = 348 },
             };
 
-
+         
             //6.2.1
             Console.WriteLine("▲▲問題6.2▲▲");
             Console.WriteLine("\n-------------");
