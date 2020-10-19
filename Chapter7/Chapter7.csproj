@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abbreviations.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="MonthDay.cs" />
     <Compile Include="Program.cs" />
