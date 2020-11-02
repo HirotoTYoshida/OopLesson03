@@ -24,5 +24,15 @@ namespace SendMailApp
         {
             InitializeComponent();
         }
+
+        private void btCancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btOk_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
