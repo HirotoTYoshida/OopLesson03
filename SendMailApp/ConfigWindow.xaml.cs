@@ -12,15 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SendMailApp
-{
+namespace SendMailApp {
     /// <summary>
     /// ConfigWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class ConfigWindow : Window
-    {
-        public ConfigWindow()
-        {
+    public partial class ConfigWindow : Window {
+        public ConfigWindow() {
             InitializeComponent();
         }
     }

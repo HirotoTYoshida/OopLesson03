@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{94CB498C-8D17-4A3D-90EA-1935686052A1}</ProjectGuid>
+    <ProjectGuid>{88A9D166-9711-4CD6-BE96-1C5B30010BF3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>SendMailApp</RootNamespace>
     <AssemblyName>SendMailApp</AssemblyName>
