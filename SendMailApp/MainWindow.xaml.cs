@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -69,17 +70,28 @@ namespace SendMailApp {
             sc.SendAsyncCancel();
         }
 
+        //設定画面表示
         private void btConfig_Click(object sender, RoutedEventArgs e)
         {
-            ConfigWindow configWindow = new ConfigWindow();
-            configWindow.Show();
+            ConfigWindowShow(); //設定画面
         }
 
+        private static void ConfigWindowShow()
+        {
+            ConfigWindow configWindow = new ConfigWindow();
+            configWindow.ShowDialog();　//表示
+        }
+
+        //メインウィンドウがロードされるタイミングで呼び出される
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
                 Config.GetInstance().DeSerialise(); //逆シリアル化　XML　→　オブジェクト
+            }
+            catch (FileNotFoundException)
+            {
+                ConfigWindowShow(); //ファイルが存在しないので設定画面を先に表示
             }
             catch(Exception ex)
             {

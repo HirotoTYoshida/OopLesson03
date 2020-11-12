@@ -83,10 +83,10 @@ namespace SendMailApp
         public void DeSerialise() //逆シリアル化 オブジェクト→XML
         {
 
-            using (var writer = XmlWriter.Create("config.xml"))
+            using (var reader = XmlReader.Create("config.xml"))
             {
-                var serializer = new XmlSerializer(instance.GetType());
-                serializer.Serialize(writer, instance);
+                var serializer = new XmlSerializer(typeof(Config));
+                instance = serializer.Deserialize(reader) as Config; ;
             }
         }
     }
