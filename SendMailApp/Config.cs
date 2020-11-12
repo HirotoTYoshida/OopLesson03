@@ -79,7 +79,7 @@ namespace SendMailApp
                 serializer.Serialize(writer, instance);
             }
         }
-
+        //
         public void DeSerialise() //逆シリアル化 オブジェクト→XML
         {
 
