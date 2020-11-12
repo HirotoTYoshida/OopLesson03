@@ -41,6 +41,8 @@ namespace SendMailApp {
                 tbPassWord.Password,
                 int.Parse(tbPort.Text),
                 cbSsl.IsChecked ?? false);  //更新処理を呼び出す
+
+            
         }
 
         //OKボタン

@@ -48,9 +48,6 @@ namespace SendMailApp {
 
                 if (tbBcc.Text != "")
                     msg.Bcc.Add(tbBcc.Text);
-                msg.To.Add(new MailAddress("ojsinfosys02@gmail.com"));
-                msg.CC.Add(tbCc.Text);
-                msg.Bcc.Add(tbBcc.Text);
                 
                 msg.Subject = tbTitle.Text; //件名
                 msg.Body = tbBody.Text;//本文
@@ -80,7 +77,12 @@ namespace SendMailApp {
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Config.GetInstance().Serialise();
+        }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Config.GetInstance().Serialise();
         }
     }
 }
