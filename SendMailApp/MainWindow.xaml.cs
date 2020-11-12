@@ -77,12 +77,28 @@ namespace SendMailApp {
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Config.GetInstance().Serialise();
+            try
+            {
+                Config.GetInstance().DeSerialise(); //逆シリアル化　XML　→　オブジェクト
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            Config.GetInstance().Serialise();
+            try
+            {
+                Config.GetInstance().Serialise(); //シリアル化　XML　→　オブジェクト
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
     }
 }
