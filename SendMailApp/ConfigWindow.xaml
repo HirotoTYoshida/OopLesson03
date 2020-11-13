@@ -9,10 +9,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-
-        <GroupBox Grid.Row="0" Background="Azure" Margin="5,10" Header="送信情報">
+        
+        <GroupBox Grid.Row="0" BorderBrush="Black" Margin="5,10" Header="送信情報">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
@@ -25,24 +25,24 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="SMTPサーバー:"
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="SMTPサーバー：" 
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <TextBox x:Name="tbSmtp" Grid.Row="0" Grid.Column="1" Margin="5,20"/>
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="ユーザー名:"
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="ユーザ名：" 
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <TextBox x:Name="tbUserName" Grid.Row="1" Grid.Column="1" Margin="5,20"/>
-                <TextBlock Grid.Row="0" Grid.Column="2" Text="ポート:"
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="ポート：" 
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <TextBox x:Name="tbPort" Grid.Row="0" Grid.Column="3" Margin="5,20"/>
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="パスワード:"
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="パスワード：" 
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <PasswordBox x:Name="tbPassWord" Grid.Row="1" Grid.Column="3" Margin="5,20"/>
-                <CheckBox x:Name="cbSsl" Grid.Row="3" Grid.Column="3" Content="SSL有効" 
+                <CheckBox x:Name="cbSsl" Grid.Row="2" Grid.Column="3" Content="SSL有効" 
                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
         </GroupBox>
-
-        <GroupBox Grid.Row="1" Background="Azure" Margin="5,10" Header="ユーザー情報">
+       
+        <GroupBox Grid.Row="1" BorderBrush="Black" Margin="5,10" Header="ユーザ情報">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -54,12 +54,11 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="送信元:"
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="送信元：" 
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <TextBox x:Name="tbSender" Grid.Row="1" Grid.Column="1" Margin="5"/>
             </Grid>
         </GroupBox>
-
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="6*"/>
@@ -73,7 +72,6 @@
                 <Button x:Name="btCancel" Content="キャンセル" Width="80" Margin="10" Click="btCancel_Click"/>
                 <Button x:Name="btApply" Content="適用" Width="80" Margin="10" Click="btApply_Click"/>
             </StackPanel>
-           
         </Grid>
     </Grid>
 

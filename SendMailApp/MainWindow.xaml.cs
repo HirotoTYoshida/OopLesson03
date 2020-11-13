@@ -29,8 +29,9 @@ namespace SendMailApp {
             sc.SendCompleted += Sc_SendCompleted;
         }
 
-        //送信完了イベント
-        private void Sc_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e) {
+    
+            //送信完了イベント
+            private void Sc_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e) {
             if(e.Cancelled) {
                 MessageBox.Show("送信はキャンセルされました。");
             } else {

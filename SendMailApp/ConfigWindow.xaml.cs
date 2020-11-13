@@ -48,15 +48,35 @@ namespace SendMailApp {
         //OKボタン
         private void btOk_Click(object sender, RoutedEventArgs e)
         {
-            btApply_Click(sender,e); //更新処理を呼び出す
-            this.Close();
+            if (tbSmtp.Text == "" || tbPort.Text == "" || tbPassWord.Password == "" ||
+                tbSender.Text == "" || tbUserName.Text == "")
+            {
+                AlertMessage();
+            }
+            else
+            {
+                btApply_Click(sender, e);   //更新処理を呼び出す
+                this.Close();
+            }
         }
 
         //キャンセルボタン
         private void btCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (DataCheck())
+            {
+                AlertMessage();
+            }
+            else if (ComparisionData())
+            {
+                SaveMessage(sender, e);
+            }
+            else
+            {
+                this.Close();
+            }
         }
+        
 
         //ロード時に一度だけ呼び出される
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -68,5 +88,61 @@ namespace SendMailApp {
             tbPassWord.Password = cf.PassWord;
             cbSsl.IsChecked = cf.Ssl;
         }
+
+        //は
+        private bool DataCheck()
+        {
+            if (tbSmtp.Text == "" || tbPort.Text == "" || tbPassWord.Password == "" ||
+                tbSender.Text == "" || tbUserName.Text == "")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void AlertMessage() 
+        {
+
+            var result = MessageBox.Show("すべての項目を入力してください。", "エラー",
+               MessageBoxButton.OK);
+
+           
+        }
+        //
+
+        private bool ComparisionData()
+        {
+            Config cf = Config.GetInstance();
+            if (cf.Smtp != tbSmtp.Text || cf.MailAddress != tbSender.Text ||
+                cf.PassWord != tbPassWord.Password || cf.Port != int.Parse(tbPort.Text) ||
+                cf.MailAddress != tbUserName.Text)
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+        }
+
+        private void SaveMessage(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("ファイルを上書きしますか？", "質問",
+                MessageBoxButton.OKCancel);
+
+            if (result == MessageBoxResult.OK)
+            {
+                btApply_Click(sender, e);
+                this.Close();
+            }
+            else if (result == MessageBoxResult.Cancel)
+            {
+                this.Close();
+            }
+        }
+
     }
 }
