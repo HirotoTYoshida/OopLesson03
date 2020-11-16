@@ -73,10 +73,10 @@ namespace SendMailApp
 
         public void Serialise() //シリアル化 　XML→オブジェクト
         {
-            using (var writer = XmlWriter.Create("config.xml"))
+            using (var write = XmlWriter.Create("config.xml"))
             {
                 var serializer = new XmlSerializer(instance.GetType());
-                serializer.Serialize(writer, instance);
+                serializer.Serialize(write, instance);
             }
         }
         //
@@ -86,7 +86,8 @@ namespace SendMailApp
             using (var reader = XmlReader.Create("config.xml"))
             {
                 var serializer = new XmlSerializer(typeof(Config));
-                instance = serializer.Deserialize(reader) as Config; ;
+                instance = serializer.Deserialize(reader) as Config;
+                Console.WriteLine(instance);
             }
         }
     }

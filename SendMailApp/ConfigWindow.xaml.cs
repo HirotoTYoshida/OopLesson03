@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,19 +12,28 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MessageBox = System.Windows.MessageBox;
 
-namespace SendMailApp {
-    /// <summary>
-    /// ConfigWindow.xaml の相互作用ロジック
-    /// </summary>
-    public partial class ConfigWindow : Window {
-        public ConfigWindow() {
+namespace SendMailApp
+{
+    
+    public partial class ConfigWindow : Window
+    {
+        public bool Change = false;
+
+        public ConfigWindow()
+        {
             InitializeComponent();
         }
 
+        public bool Modified { get; set; }
+
+        //設定ボタン
         private void btDefault_Click(object sender, RoutedEventArgs e)
         {
             Config cf = (Config.GetInstance()).getDefaultStatus();
+            
+
             tbSmtp.Text = cf.Smtp;
             tbPort.Text = cf.Port.ToString();
             tbSender.Text = tbUserName.Text = cf.MailAddress;
@@ -32,30 +41,38 @@ namespace SendMailApp {
             cbSsl.IsChecked = cf.Ssl;
         }
 
-        //適用（更新）
+        //適用ボタン
         private void btApply_Click(object sender, RoutedEventArgs e)
         {
-            (Config.GetInstance()).UpdateStatus(
+            try
+            {
+                (Config.GetInstance()).UpdateStatus(
                 tbSmtp.Text,
                 tbUserName.Text,
                 tbPassWord.Password,
                 int.Parse(tbPort.Text),
-                cbSsl.IsChecked ?? false);  //更新処理を呼び出す
+                cbSsl.IsChecked ?? false);
+                ChangeOk(sender, e);
+            }
+            catch (Exception ex)
+            {
 
-            
+                MessageBox.Show("値を入力してください");
+            }
+
         }
 
         //OKボタン
         private void btOk_Click(object sender, RoutedEventArgs e)
         {
-            if (tbSmtp.Text == "" || tbPort.Text == "" || tbPassWord.Password == "" ||
-                tbSender.Text == "" || tbUserName.Text == "")
+            if (tbSmtp.Text == "" || tbUserName.Text == "" || tbPort.Text == "" || tbPassWord.Password == "" || tbSender.Text == "")
             {
-                AlertMessage();
+                MessageBox.Show("未入力の項目があります。");
+
             }
             else
             {
-                btApply_Click(sender, e);   //更新処理を呼び出す
+                btApply_Click(sender, e);  
                 this.Close();
             }
         }
@@ -63,86 +80,52 @@ namespace SendMailApp {
         //キャンセルボタン
         private void btCancel_Click(object sender, RoutedEventArgs e)
         {
-            if (DataCheck())
+            if (Change == true)
             {
-                AlertMessage();
-            }
-            else if (ComparisionData())
-            {
-                SaveMessage(sender, e);
+                MessageBoxResult result = MessageBox.Show("内容が変更されています。保存しますか？", "Daanger", MessageBoxButton.OKCancel);
+                if (result == MessageBoxResult.Cancel)
+                {
+                    ChangeOk(sender, e);
+                    this.Close();
+                }
+                else if (result == MessageBoxResult.OK)
+                {
+                    btApply_Click(sender, e);
+                    this.Close();
+                }
             }
             else
             {
+                ChangeOk(sender, e);
                 this.Close();
             }
         }
-        
 
-        //ロード時に一度だけ呼び出される
+        //設定画面ロード時に一度だけ呼び出される
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Config cf = (Config.GetInstance()).getDefaultStatus();
+            Config cf = Config.GetInstance();
             tbSmtp.Text = cf.Smtp;
             tbPort.Text = cf.Port.ToString();
             tbSender.Text = tbUserName.Text = cf.MailAddress;
             tbPassWord.Password = cf.PassWord;
             cbSsl.IsChecked = cf.Ssl;
+            ChangeOk(sender, e);
         }
 
-        //は
-        private bool DataCheck()
+        private void Config_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbSmtp.Text == "" || tbPort.Text == "" || tbPassWord.Password == "" ||
-                tbSender.Text == "" || tbUserName.Text == "")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            Change = true;
         }
 
-        private void AlertMessage() 
+        private void tbPassWord_PasswordChanged(object sender, RoutedEventArgs e)
         {
-
-            var result = MessageBox.Show("すべての項目を入力してください。", "エラー",
-               MessageBoxButton.OK);
-
-           
+            Change = true;
         }
-        //
 
-        private bool ComparisionData()
+        private void ChangeOk(object sender, RoutedEventArgs e)
         {
-            Config cf = Config.GetInstance();
-            if (cf.Smtp != tbSmtp.Text || cf.MailAddress != tbSender.Text ||
-                cf.PassWord != tbPassWord.Password || cf.Port != int.Parse(tbPort.Text) ||
-                cf.MailAddress != tbUserName.Text)
-            {
-                return true;
-            }
-            else 
-            {
-                return false;
-            }
+            Change = false;
         }
-
-        private void SaveMessage(object sender, RoutedEventArgs e)
-        {
-            var result = MessageBox.Show("ファイルを上書きしますか？", "質問",
-                MessageBoxButton.OKCancel);
-
-            if (result == MessageBoxResult.OK)
-            {
-                btApply_Click(sender, e);
-                this.Close();
-            }
-            else if (result == MessageBoxResult.Cancel)
-            {
-                this.Close();
-            }
-        }
-
     }
 }
